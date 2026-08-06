@@ -69,3 +69,11 @@ Restart=always
 WantedBy=default.target
 ```
 Note that I've chosen a port to suit my deployment and that I've created `/opt/pods/memos` to contain the `memos` data files.
+
+### Build a file descriptor set for the Memos API.
+
+The `Makefile` includes a target (`make descriptor`) that generates a `descriptor.pb` file that contains a file descriptor set for the Memos API. When this is uploaded to IO, IO can display the contents of request and response bodies. Upload it using SSH:
+
+```sh
+ssh YOUR-IO-HOST -p 2200 put < descriptor.pb
+```

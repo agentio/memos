@@ -15,3 +15,13 @@ container:
 		--build-arg COMMIT=$(shell cd memos; git rev-parse HEAD) \
 		--tag ghcr.io/agentio/memos
 	podman push ghcr.io/agentio/memos
+
+API=$(shell find memos/proto/api -name "*.proto")
+COMMON=$(shell find common -name "*.proto")
+
+descriptor:
+	protoc ${API} ${COMMON} \
+	--proto_path='memos/proto' \
+	--proto_path=common \
+	--descriptor_set_out=descriptor.pb
+
